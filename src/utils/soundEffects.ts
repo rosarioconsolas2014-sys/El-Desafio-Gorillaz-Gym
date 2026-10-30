@@ -24,6 +24,17 @@ class SoundEffects {
     }
   }
 
+  public async warmup(): Promise<void> {
+    try {
+      this.initContext();
+      if (this.ctx && this.ctx.state === 'suspended') {
+        await this.ctx.resume();
+      }
+    } catch {
+      // Audio context policy fallback
+    }
+  }
+
   public getSoundEnabled(): boolean {
     return this.isEnabled;
   }
