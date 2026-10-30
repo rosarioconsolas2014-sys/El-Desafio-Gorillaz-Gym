@@ -1,0 +1,59 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    // Participants: public read for leaderboard, restricted fields on write
+    match /participants/{participantId} {
+      allow read: if true;
+      allow create: if isValidId(participantId) &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() >= 3 &&
+        request.resource.data.dni is string &&
+        request.resource.data.dni.size() >= 7 &&
+        request.resource.data.dni.size() <= 8 &&
+        request.resource.data.active == true;
+      allow update: if isValidId(participantId) && (
+        isAdmin() ||
+        // Self score progression: increment attempts, improve scores
+        request.resource.data.dni == resource.data.dni &&
+        request.resource.data.active == resource.data.active
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Games: completed matches
+    match /games/{gameId} {
+      allow read: if true;
+      allow create: if isValidId(gameId) &&
+        request.resource.data.status == 'completado' &&
+        request.resource.data.totalScore is number &&
+        request.resource.data.duration is number;
+      allow update, delete: if isAdmin();
+    }
+
+    // Settings: public read so clients know attempt limits, only admin can write
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admin Logs: internal staff audit only
+    match /adminLogs/{logId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

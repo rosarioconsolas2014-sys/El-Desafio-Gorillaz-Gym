@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "Participant": {
+      "title": "Participant",
+      "description": "Gorillaz Gym member registered by DNI to compete in the challenge",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "dni": { "type": "string", "maxLength": 8, "pattern": "^[0-9]{7,8}$" },
+        "nickname": { "type": "string", "maxLength": 50 },
+        "attemptsUsed": { "type": "number" },
+        "bestScore": { "type": "number" },
+        "lastScore": { "type": "number" },
+        "bestTimeSeconds": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastPlayedAt": { "type": "string", "format": "date-time" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["name", "dni", "attemptsUsed", "bestScore", "createdAt", "active"]
+    },
+    "Game": {
+      "title": "Game",
+      "description": "Completed attempt record containing score breakdown and timing",
+      "type": "object",
+      "properties": {
+        "participantId": { "type": "string", "maxLength": 128 },
+        "dni": { "type": "string", "maxLength": 8 },
+        "name": { "type": "string", "maxLength": 100 },
+        "nickname": { "type": "string", "maxLength": 50 },
+        "totalScore": { "type": "number" },
+        "level1Score": { "type": "number" },
+        "level2Score": { "type": "number" },
+        "level3Score": { "type": "number" },
+        "speedBonus": { "type": "number" },
+        "streakBonus": { "type": "number" },
+        "duration": { "type": "number" },
+        "attemptNumber": { "type": "number" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["completado"] }
+      },
+      "required": ["participantId", "dni", "totalScore", "duration", "status"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Global tournament parameters and max attempts configuration",
+      "type": "object",
+      "properties": {
+        "maxAttempts": { "type": "number" },
+        "unlimitedAttempts": { "type": "boolean" },
+        "competitionEnabled": { "type": "boolean" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "competitionTitle": { "type": "string", "maxLength": 150 },
+        "prizeTitle": { "type": "string", "maxLength": 150 },
+        "adminPasscode": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["maxAttempts", "unlimitedAttempts", "competitionEnabled"]
+    },
+    "AdminLog": {
+      "title": "AdminLog",
+      "description": "Audit trails for administrative interventions and resets",
+      "type": "object",
+      "properties": {
+        "adminId": { "type": "string", "maxLength": 128 },
+        "action": { "type": "string", "maxLength": 100 },
+        "participantId": { "type": "string", "maxLength": 128 },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["adminId", "action", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/participants/{participantId}": {
+      "schema": "Participant",
+      "description": "Member participant accounts registered by DNI"
+    },
+    "/games/{gameId}": {
+      "schema": "Game",
+      "description": "Individual completed match records"
+    },
+    "/settings/{settingId}": {
+      "schema": "Settings",
+      "description": "Tournament configuration settings"
+    },
+    "/adminLogs/{logId}": {
+      "schema": "AdminLog",
+      "description": "Audit log records of staff actions"
+    }
+  }
+}

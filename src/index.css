@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Anton', 'Impact', sans-serif;
+    --font-impact: 'Teko', sans-serif;
+    --font-sans: 'Outfit', system-ui, sans-serif;
+    
+    /* Gaming Neon Fitness Palette */
+    --color-bg-deep: #080810;
+    --color-violet-main: #8B35FF;
+    --color-violet-electric: #B026FF;
+    --color-neon-cyan: #00CFFF;
+    --color-neon-yellow: #FFE600;
+    --color-card-dark: #171722;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #080810;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+  }
+
+  .font-impact {
+    font-family: var(--font-impact);
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Custom Gaming Neon Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080810;
+}
+::-webkit-scrollbar-thumb {
+  background: #171722;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8B35FF;
+  box-shadow: 0 0 10px #B026FF;
+}
+
+/* Neon Glow Utilities */
+.glow-violet {
+  box-shadow: 0 0 25px -4px rgba(176, 38, 255, 0.5);
+}
+
+.glow-violet-lg {
+  box-shadow: 0 0 45px -6px rgba(176, 38, 255, 0.7);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px -4px rgba(0, 207, 255, 0.5);
+}
+
+.glow-yellow {
+  box-shadow: 0 0 25px -4px rgba(255, 230, 0, 0.55);
+}
+
+.text-glow-violet {
+  text-shadow: 0 0 18px rgba(176, 38, 255, 0.75);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 18px rgba(0, 207, 255, 0.75);
+}
+
+.text-glow-yellow {
+  text-shadow: 0 0 18px rgba(255, 230, 0, 0.85);
+}
+
+/* Electric Violet Button */
+.btn-electric-violet {
+  background: linear-gradient(135deg, #B026FF 0%, #8B35FF 100%);
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(176, 38, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-electric-violet:hover {
+  background: linear-gradient(135deg, #be43ff 0%, #9a4aff 100%);
+  box-shadow: 0 0 40px rgba(176, 38, 255, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Neon Borders */
+.border-neon-violet {
+  border-color: #8B35FF;
+}
+
+.border-neon-cyan {
+  border-color: #00CFFF;
+}
+
+.border-neon-yellow {
+  border-color: #FFE600;
+}
+
+/* Cyber Gaming Scanline / Grid Background */
+.cyber-grid {
+  background-image: 
+    linear-gradient(to right, rgba(139, 53, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 53, 255, 0.08) 1px, transparent 1px);
+  background-size: 3.5rem 3.5rem;
+}

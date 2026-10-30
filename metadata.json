@@ -1,0 +1,6 @@
+{
+  "name": "GORILLAZ GYM - The Champion Challenge",
+  "description": "Juego de competencia para socios de GORILLAZ GYM: 3 niveles de fuerza, memoria y conocimiento fitness para ganar una proteína.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
